@@ -1,6 +1,3 @@
-app.listen(3000, function(){
-  console.log('listen to events on "port".')
-}
 
 var express = require('express');
 var cors = require('cors');
@@ -19,7 +16,7 @@ var MongoClient = mongodb.MongoClient;
 
 var mongoUrl = 'mongodb://localhost:27017/OMDB&NYT';
 
-app.get('/', function(request, response)){
+app.get('/', function(request, response) {
   response.json({"description":"Silverscreen"});
 
 });
@@ -41,7 +38,7 @@ app.get('/hitlist', function(request, response){
           console.log('no document(s) found with defined "find" criteria');
           response.json("none found");
         }
-        db.close(function)() {
+        db.close(function() {
           console.log( "database CLOSED");
         });
       }); //end find
@@ -50,7 +47,7 @@ app.get('/hitlist', function(request, response){
   }) //end mongoconnect
 }); //end get all
 
-app.post('/hitlist/new', function(request, response))
+app.post('/hitlist/new', function(request, response) {
   console.log("request.body", request.body);
 
     MongoClient.connect(mongoUrl, function (err, db) {
@@ -191,3 +188,9 @@ app.put('/thehitlist/:name', function(request, response) {
     } // end else
   }); // end mongo connect
 }); // end update
+
+PORT = process.env.PORT || 80;
+
+app.listen(PORT, function(){
+  console.log('listen to events on "port".')
+});
